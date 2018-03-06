@@ -1,0 +1,8 @@
+{
+  "name": "redux-webworker",
+  "version": "0.0.1",
+  "description": "A redux middleware library that allows you to execute web workers, which dispatch actions when complete.",
+  "main": "index.js",
+  "author": "Gavin Gregory <gavin.ian.gregory@gmail.com>",
+  "license": "MIT"
+}
