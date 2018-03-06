@@ -6,6 +6,15 @@
   "author": "Gavin Gregory <gavin.ian.gregory@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": ""
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.1",
+    "babel-preset-env": "^1.6.1",
+    "enzyme": "^3.3.0",
+    "jest": "^22.4.2"
   }
 }
