@@ -1,12 +1,11 @@
 export class WebWorker {
-
   constructor ({
     fn,
     onMessage,
     triggerAction,
     successAction,
     failAction,
-    messageAction
+    messageAction,
   }) {
     this.fn = fn;
     this.onMessage = onMessage;

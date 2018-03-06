@@ -1,0 +1,15 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "always",
+      "asyncArrow": "always"
+    }],
+    "import/prefer-default-export": 0,
+    "no-console": ["error", { "allow": ["warn", "error"] }]
+  }
+}

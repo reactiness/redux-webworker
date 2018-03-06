@@ -4,7 +4,7 @@ import { run } from '../webWorker';
 import {
   EXECUTE_WORKER,
   SEND_MESSAGE,
-  TERMINATE_WORKER
+  TERMINATE_WORKER,
 } from '../actions';
 
 /**
@@ -33,23 +33,21 @@ const handleMessage = (action, store) => {
  * If no trigger found, pass to next middleware.
  */
 const handleCheckForTrigger = (action, store, next) => {
-
   const worker = Object
-  .keys(store)
-  .map(key => store[key])
-  .find(worker => worker.triggerAction === action.type);
-  
+    .keys(store)
+    .map(key => store[key])
+    .find(w => w.triggerAction === action.type);
+
   if (worker) {
     const webWorker = run(worker.fn, worker.onMessage);
-    webWorker.onmessage = (m) => console.log('message', m);
-    webWorker.onerror = (e) => console.error('error', e);
-    webWorker.postMessage(''); // run it
+    webWorker.onmessage = m => console.error('not yet implemented', m);
+    webWorker.onerror = e => console.error('not yet implemented', e);
+    webWorker.postMessage('');
     worker.instance = webWorker;
   }
 
   return next(action);
-
-}
+};
 
 const handleTerminateWorker = (action, store) => {
   const worker = store[action.payload.id];
@@ -63,22 +61,23 @@ const handleExecuteWorker = (action, store) => {
   const worker = store[action.payload.id];
   if (worker.instance) handleTerminateWorker(action, store);
   const webWorker = run(worker.fn, worker.onMessage);
-  webWorker.onmessage = (m) => console.log('message', m);
-  webWorker.onerror = (e) => console.error('error', e);
+  webWorker.onmessage = m => console.error('not yet implemented', m);
+  webWorker.onerror = e => console.error('not yet implemented', e);
   webWorker.postMessage(''); // run it
   worker.instance = webWorker;
-}
+};
 
 /**
  * Redux Webworker Middelware factory
  */
-export const createWebWorkerMiddleware = () => store => next => action => {
+export const createWebWorkerMiddleware = () => (/* store */) => next => (action) => {
   switch (action.type) {
     case SEND_MESSAGE: return handleMessage(action, localStore);
     case EXECUTE_WORKER: return handleExecuteWorker(action, localStore);
     case TERMINATE_WORKER: return handleTerminateWorker(action, localStore);
     default: return handleCheckForTrigger(action, localStore, next);
   }
-}
+};
 
-window.__STORE = localStore;
+// eslint-disable-next-line no-undef
+window.TEMP_STORE = localStore;
